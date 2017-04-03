@@ -41,10 +41,6 @@ Style/LineLength:
 # Configuration parameters: CountComments.
 Style/MethodLength:
   Max: 32
-
-# Offense count: 2
-Style/RegexpLiteral:
-  MaxSlashes: 0
   
 AllCops:
   Exclude:
