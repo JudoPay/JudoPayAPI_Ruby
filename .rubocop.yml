@@ -40,7 +40,10 @@ Metrics/LineLength:
 # Offense count: 3
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
-  Max: 32
+  Max: 80
+
+Metrics/BlockLength:
+  Max: 65
   
 AllCops:
   Exclude:
