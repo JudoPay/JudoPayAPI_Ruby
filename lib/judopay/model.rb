@@ -9,7 +9,7 @@ module Judopay
   class Model
     send :include, Virtus.model
     include ActiveModel::Validations
-    VALID_PAGING_OPTIONS = [:sort, :offset, :page_size].freeze
+    VALID_PAGING_OPTIONS = %i{sort offset page_size}.freeze
 
     class << self
       @resource_path = nil

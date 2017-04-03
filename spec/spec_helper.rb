@@ -13,7 +13,7 @@ RSpec.configure do |config|
   config.include WebMock::API
 
   config.expect_with :rspec do |c|
-    c.syntax = [:expect, :should]
+    c.syntax = %i{expect should}
   end
 end
 
