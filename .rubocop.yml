@@ -11,7 +11,7 @@ Lint/UnusedMethodArgument:
   Enabled: false
 
 # Offense count: 1
-Style/CyclomaticComplexity:
+Metrics/CyclomaticComplexity:
   Max: 10
 
 # Offense count: 15
@@ -34,12 +34,12 @@ Style/Lambda:
   Enabled: false
 
 # Offense count: 25
-Style/LineLength:
+Metrics/LineLength:
   Max: 138
 
 # Offense count: 3
 # Configuration parameters: CountComments.
-Style/MethodLength:
+Metrics/MethodLength:
   Max: 32
   
 AllCops:
