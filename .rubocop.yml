@@ -33,6 +33,9 @@ Style/HashSyntax:
 Style/Lambda:
   Enabled: false
 
+Style/SymbolArray:
+  Enabled: false
+
 # Offense count: 25
 Metrics/LineLength:
   Max: 138
