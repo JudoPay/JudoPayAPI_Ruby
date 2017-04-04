@@ -36,6 +36,9 @@ Style/Lambda:
 Style/SymbolArray:
   Enabled: false
 
+Style/WordArray:
+  Enabled: true
+
 # Offense count: 25
 Metrics/LineLength:
   Max: 138
