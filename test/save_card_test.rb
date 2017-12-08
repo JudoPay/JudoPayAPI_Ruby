@@ -1,4 +1,3 @@
-require 'base/payments_tests'
 require 'base/integration_base'
 
 class SaveCardTests < IntegrationBase
