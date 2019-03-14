@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'judopay/error'
 require 'test/unit/assertions'
 

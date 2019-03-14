@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'base/payments_tests'
 require_relative 'base/integration_base'
 

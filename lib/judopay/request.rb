@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'openssl'
 require 'json'
 
@@ -44,6 +46,7 @@ module Judopay
       Judopay.log(Logger::DEBUG, response)
 
       return response if raw
+
       Response.create(response.body)
     end
   end

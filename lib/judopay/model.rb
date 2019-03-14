@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'addressable/uri'
 require 'virtus'
 require 'active_model'
@@ -50,6 +52,7 @@ module Judopay
         valid_options = {}
         options.each do |key, value|
           next unless VALID_PAGING_OPTIONS.include?(key)
+
           valid_options[key] = value
         end
         valid_options
@@ -101,6 +104,7 @@ module Judopay
     # Use judo_id from configuration if it hasn't been explicitly set
     def check_judo_id
       return unless respond_to?('judo_id') && judo_id.nil?
+
       self.judo_id = Judopay.configuration.judo_id
     end
 
