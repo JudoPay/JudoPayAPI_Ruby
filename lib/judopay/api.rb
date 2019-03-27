@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('connection', __dir__)
 require File.expand_path('request', __dir__)
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../model'
 require_relative 'payment'
 require_relative 'card_address'

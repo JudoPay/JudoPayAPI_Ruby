@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 require_relative '../lib/judopay'
 require_relative '../lib/judopay/error'

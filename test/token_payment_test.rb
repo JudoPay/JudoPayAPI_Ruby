@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'base/token_payment_tests'
 require_relative 'base/integration_base'
 

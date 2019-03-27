@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'faraday_middleware'
 require 'openssl'
@@ -25,6 +27,7 @@ module Judopay
 
     def define_format(faraday, raw)
       return if raw
+
       faraday.use FaradayMiddleware::JudoMashify
       faraday.use Faraday::Response::ParseJson if Judopay.configuration.format.to_s == 'json'
     end

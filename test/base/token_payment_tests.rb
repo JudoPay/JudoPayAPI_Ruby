@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../base/integration_base'
 require_relative '../helper/assertion_helper'
 
