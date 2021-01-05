@@ -3,7 +3,7 @@ version: 2.1
 commands:
   test:
     parameters:
-      php_version:
+      ruby_version:
         type: string
     steps:
       - checkout
@@ -107,8 +107,8 @@ workflows:
   version: 2
   build:
     jobs:
-      - test_ruby20:
-      - test_ruby21:
+      - test_ruby20
+      - test_ruby21
       - test_ruby23:
           filters:
             tags:
