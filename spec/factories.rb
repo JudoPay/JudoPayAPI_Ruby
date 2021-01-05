@@ -30,13 +30,13 @@ FactoryBot.define do
 
   trait :valid_card do
     card_number '4976000000003436'
-    expiry_date '12/20'
+    expiry_date '12/25'
     cv2 452
   end
 
   trait :declined_card do
     card_number '4221690000004963'
-    expiry_date '12/20'
+    expiry_date '12/25'
     cv2 125
   end
 
@@ -211,7 +211,7 @@ FactoryBot.define do
 
   factory :encrypt_details, :class => Judopay::EncryptDetails do
     card_number '4976000000003436'
-    expiry_date '12/20'
+    expiry_date '12/25'
     cv2 452
   end
 

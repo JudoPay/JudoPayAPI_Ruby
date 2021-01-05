@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+
+# Code coverage
+SimpleCov.start
+
 require_relative '../lib/judopay'
 require 'i18n'
 

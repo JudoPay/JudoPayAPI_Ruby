@@ -20,6 +20,4 @@ task :code_check do
   Rake::Task['test'].invoke
 end
 
-# check code before build
-task :build => :code_check
 task :default => :build
