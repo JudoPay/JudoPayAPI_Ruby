@@ -22,6 +22,28 @@ commands:
             - Gemfile.lock
       - run:
           name: Run Unit Tests
+          command: bundle exec rake test
+  lint_and_test:
+    parameters:
+      ruby_version:
+        type: string
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - bundle-<< parameters.ruby_version >>-{{ checksum "judopay.gemspec" }}-v1
+      - run:
+          name: Bundle Install
+          command: |
+            bundle config set path 'vendor/cache'
+            bundle install
+      - save_cache:
+          key: bundle-<< parameters.ruby_version >>-{{ checksum "judopay.gemspec" }}-v1
+          paths:
+            - vendor/cache
+            - Gemfile.lock
+      - run:
+          name: Run Unit Tests
           command: bundle exec rake code_check
       - persist_to_workspace:
           root: .
@@ -91,7 +113,7 @@ jobs:
       name: ruby
       ruby_version: "3.0"
     steps:
-      - test:
+      - lint_and_test:
           ruby_version: "3.0"
   sonar_scan:
     docker:
@@ -149,24 +171,24 @@ workflows:
     jobs:
       - test_ruby21
       - test_ruby22
-      - test_ruby23:
-          filters:
-            tags:
-              only:
-                - /^v((\d)+\.){1,2}(\d+)/i
+      - test_ruby23
       - test_ruby24
       - test_ruby25
       - test_ruby26
       - test_ruby27
-      - test_ruby30
+      - test_ruby30:
+          filters:
+            tags:
+              only:
+                - /^v((\d)+\.){1,2}(\d+)/i
       - sonar_scan:
           context: shared-secrets
           requires:
-            - test_ruby23
+            - test_ruby30
       - release_gem:
           context: shared-secrets
           requires:
-            - test_ruby23
+            - test_ruby30
           filters:
             branches:
               ignore:
