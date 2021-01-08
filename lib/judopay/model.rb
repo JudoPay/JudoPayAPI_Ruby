@@ -26,7 +26,7 @@ module Judopay
         check_api_method_is_supported(__method__)
         api = Judopay::API.new
         valid_options = self.valid_options(options).camel_case_keys!
-        uri = resource_path + '?' + valid_options.to_query_string
+        uri = "#{resource_path}?#{valid_options.to_query_string}"
         api.get(uri)
       end
 
@@ -78,7 +78,7 @@ module Judopay
       check_judo_id
       check_validation
       api = Judopay::API.new
-      api.post(resource_path + '/validate', self)
+      api.post("#{resource_path}/validate", self)
     end
 
     # Retrieve the current API resource path (e.g. /transactions/payments)

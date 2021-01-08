@@ -9,14 +9,17 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - bundle-<< parameters.ruby_version >>-{{ checksum "judopay.gemspec" }}
+            - bundle-<< parameters.ruby_version >>-{{ checksum "judopay.gemspec" }}-v1
       - run:
           name: Bundle Install
-          command: bundle install
+          command: |
+            bundle config set path 'vendor/cache'
+            bundle install
       - save_cache:
-          key: bundle-<< parameters.ruby_version >>-{{ checksum "judopay.gemspec" }}
+          key: bundle-<< parameters.ruby_version >>-{{ checksum "judopay.gemspec" }}-v1
           paths:
-            - /usr/local/lib/ruby/gems
+            - vendor/cache
+            - Gemfile.lock
       - run:
           name: Run Unit Tests
           command: bundle exec rake code_check
@@ -24,7 +27,6 @@ commands:
           root: .
           paths:
             - ./coverage
-            - ./pkg
 
 executors:
   ruby:
@@ -35,13 +37,6 @@ executors:
       - image: circleci/ruby:<< parameters.ruby_version >>
 
 jobs:
-  test_ruby22:
-    executor:
-      name: ruby
-      ruby_version: "2.2"
-    steps:
-      - test:
-          ruby_version: "2.2"
   test_ruby21:
     executor:
       name: ruby
@@ -49,6 +44,13 @@ jobs:
     steps:
       - test:
           ruby_version: "2.1"
+  test_ruby22:
+    executor:
+      name: ruby
+      ruby_version: "2.2"
+    steps:
+      - test:
+          ruby_version: "2.2"
   test_ruby23:
     executor:
       name: ruby

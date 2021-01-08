@@ -14,10 +14,14 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
+task :rubocop do
+  sh 'rubocop'
+end
+
 task :code_check do
   sh 'rubocop'
   Rake::Task['spec'].invoke
   Rake::Task['test'].invoke
 end
 
-task :default => :build
+task default: :build

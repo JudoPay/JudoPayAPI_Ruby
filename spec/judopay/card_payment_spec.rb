@@ -5,9 +5,9 @@ require_relative '../../lib/judopay/models/card_payment'
 
 describe Judopay::CardPayment do
   it 'should create a new payment given valid card details' do
-    stub_post('/transactions/payments').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('card_payments/create.json') })
+    stub_post('/transactions/payments')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('card_payments/create.json') })
 
     payment = build(:card_payment)
     response = payment.create
@@ -17,9 +17,9 @@ describe Judopay::CardPayment do
   end
 
   it 'should not create a new payment if the card is declined' do
-    stub_post('/transactions/payments').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('card_payments/create_declined.json') })
+    stub_post('/transactions/payments')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('card_payments/create_declined.json') })
 
     payment = build(:card_payment)
     payment.card_number = '4221690000004963' # Always declined
@@ -36,15 +36,15 @@ describe Judopay::CardPayment do
   end
 
   it "should use the configured Judo ID if one isn't provided in the payment request" do
-    stub_post('/transactions/payments').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('card_payments/create.json') })
+    stub_post('/transactions/payments')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('card_payments/create.json') })
 
     Judopay.configure do |config|
       config.judo_id = '123-456'
     end
 
-    payment = build(:card_payment, :judo_id => nil)
+    payment = build(:card_payment, judo_id: nil)
     payment.create
 
     expect(payment.valid?).to eq(true)

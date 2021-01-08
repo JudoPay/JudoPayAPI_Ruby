@@ -4,7 +4,7 @@ require_relative 'base/integration_base'
 
 class AuthenticationTest < IntegrationBase
   def test_payment_with_invalid_judo_id
-    payment = build(:card_payment, :judo_id => 123)
+    payment = build(:card_payment, judo_id: 123)
 
     AssertionHelper.api_exception_with_errors(1, 1) { payment.create }
   end

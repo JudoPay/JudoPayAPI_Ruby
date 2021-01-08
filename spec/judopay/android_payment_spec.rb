@@ -5,9 +5,9 @@ require_relative '../../lib/judopay/models/android_payment'
 
 describe Judopay::AndroidPayment do
   it 'should create a new payment given wallet object' do
-    stub_post('/transactions/payments').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('transactions/android_payment.json') })
+    stub_post('/transactions/payments')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('transactions/android_payment.json') })
 
     payment = build(:android_payment)
     response = payment.create
@@ -23,15 +23,15 @@ describe Judopay::AndroidPayment do
   end
 
   it 'should use the configured Judo ID if one isn\'t provided in the payment request' do
-    stub_post('/transactions/payments').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('transactions/android_payment.json') })
+    stub_post('/transactions/payments')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('transactions/android_payment.json') })
 
     Judopay.configure do |config|
       config.judo_id = '123-456'
     end
 
-    payment = build(:android_payment, :judo_id => nil)
+    payment = build(:android_payment, judo_id: nil)
     payment.create
 
     expect(payment.valid?).to eq(true)
@@ -45,32 +45,32 @@ describe Judopay::AndroidPayment do
       '"tag":"SomeBase64encodedData","version":1}}'
 
     wallet = Judopay::Wallet.new(
-      :encrypted_message => 'SomeBase64encodedData',
-      :environment => 1,
-      :ephemeral_public_key => 'SomeBase64encodedData',
-      :google_transaction_id => 'someId',
-      :instrument_details => '1234',
-      :instrument_type => 'VISA',
-      :publicKey => 'SomeBase64encodedData',
-      :tag => 'SomeBase64encodedData',
-      :version => 1
+      encrypted_message: 'SomeBase64encodedData',
+      environment: 1,
+      ephemeral_public_key: 'SomeBase64encodedData',
+      google_transaction_id: 'someId',
+      instrument_details: '1234',
+      instrument_type: 'VISA',
+      publicKey: 'SomeBase64encodedData',
+      tag: 'SomeBase64encodedData',
+      version: 1
     )
 
-    payment = build(:android_payment, :wallet => json_string)
+    payment = build(:android_payment, wallet: json_string)
     expect(payment.wallet).to be == wallet
   end
 
   it 'should raise an error when bad wallet passed' do
     expect(lambda do
-      Judopay::AndroidPayment.new(:wallet => '{"someInvalidJson}}')
-    end).to raise_error(Judopay::ValidationError, format(Judopay::Wallet::WRONG_JSON_ERROR_MESSAGE, :foo => 'Judopay::Wallet'))
+      Judopay::AndroidPayment.new(wallet: '{"someInvalidJson}}')
+    end).to raise_error(Judopay::ValidationError, format(Judopay::Wallet::WRONG_JSON_ERROR_MESSAGE, foo: 'Judopay::Wallet'))
 
     expect(lambda do
-      Judopay::AndroidPayment.new(:wallet => 1)
-    end).to raise_error(Judopay::ValidationError, format(Judopay::Wallet::WRONG_OBJECT_ERROR_MESSAGE, :foo => 'Judopay::Wallet'))
+      Judopay::AndroidPayment.new(wallet: 1)
+    end).to raise_error(Judopay::ValidationError, format(Judopay::Wallet::WRONG_OBJECT_ERROR_MESSAGE, foo: 'Judopay::Wallet'))
 
     expect(lambda do
-      build(:android_payment, :wallet => '{"valid_json":"Without token field"}').create
+      build(:android_payment, wallet: '{"valid_json":"Without token field"}').create
     end).to raise_error(Judopay::ValidationError)
   end
 end
