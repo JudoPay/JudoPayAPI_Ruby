@@ -126,7 +126,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/project
-      - run: /opt/run-scan.sh
+      - run:
+          name: Fix Paths in Coverage Report
+          command: sed -i 's/\/home\/circleci/\/root/g' ./coverage/.resultset.json
+      - run:
+          name: Sonar Scan
+          command: /opt/run-scan.sh
   release_gem:
     executor:
       name: ruby
