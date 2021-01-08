@@ -123,6 +123,7 @@ jobs:
           password: $GCLOUD_SERVICE_KEY
     working_directory: ~/project
     steps:
+      - checkout
       - attach_workspace:
           at: ~/project
       - run: /opt/run-scan.sh
