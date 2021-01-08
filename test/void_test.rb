@@ -38,7 +38,7 @@ class VoidTest < IntegrationBase
 
   protected
 
-  def make_payment(preauth: true)
+  def make_payment(preauth = true)
     payment = build(preauth ? :card_preauth : :card_payment).create
     TestHelpers::AssertionHelper.assert_successful_payment(payment)
 

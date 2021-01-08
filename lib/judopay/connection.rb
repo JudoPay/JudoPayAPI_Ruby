@@ -11,7 +11,7 @@ module Judopay
   module Connection
     private
 
-    def connection(raw: false)
+    def connection(raw = false)
       connection = Faraday.new(default_connection_options) do |faraday|
         faraday.use Faraday::Request::UrlEncoded
         faraday.use Faraday::Response::Logger, Judopay.configuration.logger

@@ -29,5 +29,8 @@ Style/Documentation:
 Style/ExplicitBlockArgument:
   Enabled: false
 
+Style/OptionalBooleanParameter:
+  Enabled: false
+
 Style/SymbolArray:
   Enabled: false
