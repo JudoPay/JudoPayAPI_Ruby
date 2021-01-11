@@ -37,10 +37,10 @@ describe Judopay::APIError do
   end
 
   it 'creates valid APIError from response using factory method' do
-    stub_post('/transactions/payments').
-      to_return(:status => 400,
-                :body => lambda { |_request| fixture('card_payments/create_bad_request.json') },
-                :headers => { 'Content-Type' => 'application/json' })
+    stub_post('/transactions/payments')
+      .to_return(status: 400,
+                 body: ->(_request) { fixture('card_payments/create_bad_request.json') },
+                 headers: { 'Content-Type' => 'application/json' })
 
     payment = build(:card_payment)
 

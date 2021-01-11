@@ -23,9 +23,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'test-unit'
   spec.add_development_dependency 'yard-xml'
-  spec.add_development_dependency 'factory_bot'
+  spec.add_development_dependency 'factory_bot', '< 5.0'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'simplecov', '< 0.17' # >0.17 reports are not compatible with SonarQube
   spec.add_dependency 'bundler'
   spec.add_dependency 'rake'
   spec.add_dependency 'virtus', '~> 1.0.2'

@@ -5,9 +5,9 @@ require_relative '../../../lib/judopay/models/web_payments/preauth'
 
 describe Judopay::WebPayments::Preauth do
   it 'should create a new web preauth request' do
-    stub_post('/webpayments/payments').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('web_payments/payments/create.json') })
+    stub_post('/webpayments/payments')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('web_payments/payments/create.json') })
 
     payment = build(:web_preauth)
     response = payment.create

@@ -5,9 +5,9 @@ require_relative '../../lib/judopay/models/register_card'
 
 describe Judopay::RegisterCard do
   it 'should register a new card with valid card details' do
-    stub_post('/transactions/registercard').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('transactions/register_card.json') })
+    stub_post('/transactions/registercard')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('transactions/register_card.json') })
 
     register_card = build(:register_card)
     response = register_card.create

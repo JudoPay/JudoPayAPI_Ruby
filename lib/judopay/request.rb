@@ -38,7 +38,7 @@ module Judopay
           request.path = path
           unless options.nil?
             request.body = Judopay::Serializer.new(options).as_json
-            Judopay.log(Logger::DEBUG, 'Request body: ' + request.body)
+            Judopay.log(Logger::DEBUG, "Request body: #{request.body}")
           end
         end
       end

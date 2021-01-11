@@ -5,9 +5,9 @@ require_relative '../../../lib/judopay/models/market/refund'
 
 describe Judopay::Market::Refund do
   it 'should list all transactions' do
-    stub_get('/market/transactions/refunds').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('transactions/all.json') })
+    stub_get('/market/transactions/refunds')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('transactions/all.json') })
 
     transactions = Judopay::Market::Refund.all
     expect(transactions).to be_a(Hash)
@@ -15,9 +15,9 @@ describe Judopay::Market::Refund do
   end
 
   it 'should create a new refund given a valid payment reference' do
-    stub_post('/market/transactions/refunds').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('card_payments/create.json') })
+    stub_post('/market/transactions/refunds')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('card_payments/create.json') })
 
     refund = build(:market_refund)
     response = refund.create
