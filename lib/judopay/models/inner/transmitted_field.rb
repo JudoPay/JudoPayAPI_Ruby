@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require_relative '../../model'
 require 'judopay/mash'
 require 'json'
 
 module Judopay
   class TransmittedField < Model
-    WRONG_OBJECT_ERROR_MESSAGE = 'You passed wrong value to the %<foo>s. Please pass Hash or json-encoded string'.freeze
-    WRONG_JSON_ERROR_MESSAGE = 'Can\'t decode %<foo>s object from JSON'.freeze
+    WRONG_OBJECT_ERROR_MESSAGE = 'You passed wrong value to the %<foo>s. Please pass Hash or json-encoded string'
+    WRONG_JSON_ERROR_MESSAGE = 'Can\'t decode %<foo>s object from JSON'
 
     class << self
       attr_accessor :field_name
@@ -18,7 +20,8 @@ module Judopay
 
       def validate_data(data)
         data = parse_string(data) if data.is_a?(String)
-        raise Judopay::ValidationError, format(WRONG_OBJECT_ERROR_MESSAGE, :foo => name) unless data.is_a?(Hash) || data.is_a?(Judopay::Mash)
+        raise Judopay::ValidationError, format(WRONG_OBJECT_ERROR_MESSAGE, foo: name) unless data.is_a?(Hash) || data.is_a?(Judopay::Mash)
+
         data = Judopay::Mash.new(data)
         data = data[field_name] if data.key?(field_name)
 
@@ -28,7 +31,7 @@ module Judopay
       def parse_string(string)
         JSON.parse(string)
       rescue StandardError
-        raise Judopay::ValidationError, format(WRONG_JSON_ERROR_MESSAGE, :foo => name)
+        raise Judopay::ValidationError, format(WRONG_JSON_ERROR_MESSAGE, foo: name)
       end
     end
 

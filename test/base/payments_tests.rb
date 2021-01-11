@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../base/integration_base'
 require_relative '../helper/assertion_helper'
 
@@ -15,26 +17,26 @@ module PaymentTests
   end
 
   def test_payment_with_negative_amount
-    TestHelpers::AssertionHelper.api_exception_with_errors(1, 1) { get_model(:amount => -1.0).create }
+    TestHelpers::AssertionHelper.api_exception_with_errors(1, 1) { get_model(amount: -1.0).create }
   end
 
   def test_payment_with_zero_amount
-    TestHelpers::AssertionHelper.api_exception_with_errors(1, 1) { get_model(:amount => 0).create }
+    TestHelpers::AssertionHelper.api_exception_with_errors(1, 1) { get_model(amount: 0).create }
   end
 
   def test_payment_without_currency
     assert_raise(Judopay::ValidationError.new("Missing required fields\nField errors:\ncurrency: can't be blank")) do
-      get_model(:currency => nil).create
+      get_model(currency: nil).create
     end
   end
 
   def test_payment_with_unknown_currency
-    TestHelpers::AssertionHelper.api_exception_with_errors(2, 1) { get_model(:currency => 'ZZZ').create }
+    TestHelpers::AssertionHelper.api_exception_with_errors(2, 1) { get_model(currency: 'ZZZ').create }
   end
 
   def test_payment_without_reference
     assert_raise(Judopay::ValidationError.new("Missing required fields\nField errors:\nyour_consumer_reference: can't be blank")) do
-      get_model(:your_consumer_reference => nil).create
+      get_model(your_consumer_reference: nil).create
     end
   end
 

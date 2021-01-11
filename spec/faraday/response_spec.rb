@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Faraday::Response do
@@ -11,10 +13,10 @@ describe Faraday::Response do
   ].each do |status|
     context "when response status is #{status}" do
       before do
-        stub_get('/transactions').
-          to_return(:status => status,
-                    :body => lambda { |_request| JSON.generate('errorType' => status) },
-                    :headers => { 'Content-Type' => 'application/json' })
+        stub_get('/transactions')
+          .to_return(status: status,
+                     body: ->(_request) { JSON.generate('errorType' => status) },
+                     headers: { 'Content-Type' => 'application/json' })
       end
 
       it 'should raise APIError exception' do

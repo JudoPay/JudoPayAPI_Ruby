@@ -1,3 +1,10 @@
+# frozen_string_literal: true
+
+require 'simplecov'
+
+# Code coverage
+SimpleCov.start
+
 require_relative '../lib/judopay'
 require 'i18n'
 
@@ -24,11 +31,11 @@ Judopay.configure do |config|
   config.api_secret = 'secret'
 end
 
-def stub_get(path)
+def stub_get(_path)
   stub_request(:get, /judopay/i)
 end
 
-def stub_post(path)
+def stub_post(_path)
   stub_request(:post, /judopay/i)
 end
 
@@ -37,5 +44,5 @@ def fixture_path
 end
 
 def fixture(file)
-  File.new(fixture_path + '/' + file)
+  File.new("#{fixture_path}/#{file}")
 end

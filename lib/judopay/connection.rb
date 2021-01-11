@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'faraday_middleware'
 require 'openssl'
@@ -25,6 +27,7 @@ module Judopay
 
     def define_format(faraday, raw)
       return if raw
+
       faraday.use FaradayMiddleware::JudoMashify
       faraday.use Faraday::Response::ParseJson if Judopay.configuration.format.to_s == 'json'
     end
@@ -45,12 +48,12 @@ module Judopay
 
     def default_connection_options
       {
-        :headers => request_headers,
-        :url => Judopay.configuration.endpoint_url,
-        :ssl => {
-          :ca_file => File.dirname(File.dirname(__FILE__)) + '/certs/rapidssl_ca.crt',
-          :cert_store => false,
-          :verify => true
+        headers: request_headers,
+        url: Judopay.configuration.endpoint_url,
+        ssl: {
+          ca_file: "#{File.dirname(File.dirname(__FILE__))}/certs/rapidssl_ca.crt",
+          cert_store: false,
+          verify: true
         }
       }
     end
@@ -67,7 +70,7 @@ module Judopay
 
       # Do we have an OAuth2 access token?
       unless Judopay.configuration.oauth_access_token.nil?
-        headers['Authorization'] = 'Bearer ' + Judopay.configuration.oauth_access_token
+        headers['Authorization'] = "Bearer #{Judopay.configuration.oauth_access_token}"
         Judopay.log(Logger::DEBUG, 'Using OAuth2 access token')
       end
 

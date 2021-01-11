@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'addressable/uri'
 require 'virtus'
 require 'active_model'
@@ -24,7 +26,7 @@ module Judopay
         check_api_method_is_supported(__method__)
         api = Judopay::API.new
         valid_options = self.valid_options(options).camel_case_keys!
-        uri = resource_path + '?' + valid_options.to_query_string
+        uri = "#{resource_path}?#{valid_options.to_query_string}"
         api.get(uri)
       end
 
@@ -50,6 +52,7 @@ module Judopay
         valid_options = {}
         options.each do |key, value|
           next unless VALID_PAGING_OPTIONS.include?(key)
+
           valid_options[key] = value
         end
         valid_options
@@ -75,7 +78,7 @@ module Judopay
       check_judo_id
       check_validation
       api = Judopay::API.new
-      api.post(resource_path + '/validate', self)
+      api.post("#{resource_path}/validate", self)
     end
 
     # Retrieve the current API resource path (e.g. /transactions/payments)
@@ -101,6 +104,7 @@ module Judopay
     # Use judo_id from configuration if it hasn't been explicitly set
     def check_judo_id
       return unless respond_to?('judo_id') && judo_id.nil?
+
       self.judo_id = Judopay.configuration.judo_id
     end
 

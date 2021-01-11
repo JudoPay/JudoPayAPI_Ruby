@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require_relative '../../lib/judopay/models/save_card'
 
 describe Judopay::SaveCard do
   it 'should save a new card with valid card details' do
-    stub_post('/transactions/savecard').
-      to_return(:status => 200,
-                :body => lambda { |_request| fixture('transactions/save_card.json') })
+    stub_post('/transactions/savecard')
+      .to_return(status: 200,
+                 body: ->(_request) { fixture('transactions/save_card.json') })
 
     save_card = build(:save_card)
     response = save_card.create

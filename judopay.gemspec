@@ -23,9 +23,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'test-unit'
   spec.add_development_dependency 'yard-xml'
-  spec.add_development_dependency 'factory_bot'
+  spec.add_development_dependency 'factory_bot', '< 5.0'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'simplecov', '< 0.17' # >0.17 reports are not compatible with SonarQube
   spec.add_dependency 'bundler'
   spec.add_dependency 'rake'
   spec.add_dependency 'virtus', '~> 1.0.2'
@@ -33,6 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activemodel', ['~> 4.1', '~> 4.2']
   spec.add_dependency 'faraday', '~> 0.9'
   spec.add_dependency 'faraday_middleware', '~> 0.9'
-  spec.add_dependency 'hashie', '~> 3.4.6'
+  spec.add_dependency 'hashie', ['~>3.5', '>= 3.5.2']
   spec.add_dependency 'addressable', '~> 2.3'
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module Judopay
@@ -49,7 +51,7 @@ module Judopay
         result = []
 
         if field_errors.is_a?(Hash) && field_errors.key?('receiptId')
-          result << 'Duplicate transaction. Receipt id: ' + field_errors['receiptId'].to_s
+          result << "Duplicate transaction. Receipt id: #{field_errors['receiptId']}"
         else
           field_errors.to_a.each do |field_error|
             result << FieldError.new(field_error['message'], field_error['code'], field_error['fieldName'], field_error['detail'])
@@ -80,6 +82,7 @@ module Judopay
 
     def field_errors_message
       return '' if @field_errors.empty?
+
       "\nFields errors:\n#{@field_errors.join("\n")}"
     end
   end
@@ -100,6 +103,7 @@ module Judopay
 
     def model_errors
       return if @errors.nil?
+
       @errors.messages
     end
 

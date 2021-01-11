@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'transmitted_field'
 require_relative 'pk_payment_token'
 

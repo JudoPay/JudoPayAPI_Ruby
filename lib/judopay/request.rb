@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'openssl'
 require 'json'
 
@@ -36,7 +38,7 @@ module Judopay
           request.path = path
           unless options.nil?
             request.body = Judopay::Serializer.new(options).as_json
-            Judopay.log(Logger::DEBUG, 'Request body: ' + request.body)
+            Judopay.log(Logger::DEBUG, "Request body: #{request.body}")
           end
         end
       end
@@ -44,6 +46,7 @@ module Judopay
       Judopay.log(Logger::DEBUG, response)
 
       return response if raw
+
       Response.create(response.body)
     end
   end

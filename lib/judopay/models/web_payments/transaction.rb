@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../model'
 
 module Judopay
@@ -12,7 +14,7 @@ module Judopay
       # @return [Judopay::Mash] Mash of the API response
       def self.find(reference)
         api = Judopay::API.new
-        api.get(@resource_path + '/' + reference.to_s)
+        api.get("#{@resource_path}/#{reference}")
       end
     end
   end

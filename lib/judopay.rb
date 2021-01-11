@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'judopay/version'
 require_relative 'judopay/api'
 require_relative 'judopay/response'
@@ -21,6 +23,7 @@ module Judopay
   def self.log(log_level, message)
     logger = self.configuration.logger
     return unless logger.is_a?(Logger)
+
     logger.progname = 'judopay'
     logger.add(log_level) { message }
   end
@@ -56,14 +59,15 @@ module Judopay
       @user_agent = "Judopay Ruby (#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}) SDK gem v#{Judopay::SDK_VERSION}"
       @logger = Judopay::NullLogger.new
       @api_endpoints = {
-        :sandbox => 'https://gw1.judopay-sandbox.com',
-        :production => 'https://gw1.judopay.com'
+        sandbox: 'https://gw1.judopay-sandbox.com',
+        production: 'https://gw1.judopay.com'
       }.freeze
       @endpoint_url = @api_endpoints[:sandbox]
     end
 
     def validate
       return true unless judo_id.to_s.empty? || api_token.to_s.empty? || api_secret.to_s.empty?
+
       raise Judopay::ValidationError, 'SDK configuration variables missing'
     end
   end
